@@ -1,0 +1,13 @@
+{
+  "name": "cvebot",
+  "version": "0.1.0",
+  "description": "Discord bot to publish latest CVE reports",
+  "main": "index.js",
+  "repository": "https://github.com/Silva97/cvebot",
+  "author": "Luiz Felipe <felipe.silva337@yahoo.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
