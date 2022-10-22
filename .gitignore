@@ -1,4 +1,5 @@
 /dist
 .env
+.cve-list
 .vscode
 node_modules

@@ -6,7 +6,11 @@ import { Client, GatewayIntentBits, MessageFlags } from 'discord.js';
 dotenv.config();
 const config = configResolver();
 
-const cveFeed = new CveFeed(config.cve.feedPageUrl);
+const cveFeed = new CveFeed({
+  feedPageUrl: config.cve.feedPageUrl,
+  cveListFile: config.cve.cveListFile,
+});
+
 const discordClient = new Client({ intents: GatewayIntentBits.Guilds });
 discordClient.login(config.discord.token);
 

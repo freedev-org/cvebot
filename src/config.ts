@@ -11,6 +11,7 @@ export default function configResolver() {
       cvssCalculator:
         process.env.CVSS_CALCULATOR_BASE_URL ||
         'https://www.first.org/cvss/calculator/3.1#',
+      cveListFile: process.env.PUBLISHED_CVE_LIST_FILE || '.cve-list',
       feedPageUrl:
         process.env.CVE_FEED_PAGE_URL ||
         'https://cassandra.cerias.purdue.edu/CVE_changes/today.html',
