@@ -2,6 +2,8 @@
 
 Discord bot to automatically report the latest published CVE.
 
+![cvebot example](https://i.imgur.com/vH52ABJ.png)
+
 ## Building
 
 ```console
