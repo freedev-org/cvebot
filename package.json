@@ -12,7 +12,8 @@
     "build": "tsc",
     "prettier": "prettier --write src/",
     "prepare": "husky install",
-    "start": "ts-node --esm ./src/index.ts"
+    "start": "node ./dist/index.js",
+    "start-dev": "ts-node --esm ./src/index.ts"
   },
   "devDependencies": {
     "@types/node": "^18.11.3",
