@@ -53,9 +53,9 @@ export interface NvdCve {
   vulnStatus: string;
   descriptions: NvdCveDescription[];
   metrics: NvdCvssMetricList;
-  weaknesses: NvdWeakness[];
-  configurations: NvdCveConfiguration[];
-  references: NvdReference[];
+  weaknesses?: NvdWeakness[];
+  configurations?: NvdCveConfiguration[];
+  references?: NvdReference[];
 }
 
 export interface NvdCveDescription {

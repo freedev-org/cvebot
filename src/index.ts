@@ -2,6 +2,7 @@ import { CveFeed } from './modules/cve-feed.js';
 import configResolver from './config.js';
 import * as dotenv from 'dotenv';
 import { Client, GatewayIntentBits, MessageFlags } from 'discord.js';
+import { NvdWeakness } from 'modules/nvd-api.js';
 
 dotenv.config();
 const config = configResolver();
@@ -38,14 +39,18 @@ async function main(): Promise<void> {
     return;
   }
 
-  const baseScore = cve.metrics['cvssMetricV31'][0].cvssData.baseScore;
-  const cvssCalculatorUrl =
-    config.cve.cvssCalculator +
-    cve.metrics['cvssMetricV31'][0].cvssData.vectorString;
+  const cvssMetric =
+    typeof cve.metrics['cvssMetricV31'] != 'undefined'
+      ? cve.metrics['cvssMetricV31'][0]
+      : null;
+
+  const baseScore = cvssMetric?.cvssData.baseScore;
+  const vectorString = cvssMetric?.cvssData.vectorString;
+  const cvssCalculatorUrl = config.cve.cvssCalculator + vectorString;
 
   const weaknesses = new Set();
 
-  cve.weaknesses.forEach((weakness) => {
+  cve.weaknesses?.forEach((weakness: NvdWeakness) => {
     weakness.description.forEach((description) => {
       if (description.value == 'NVD-CWE-noinfo') {
         return;
@@ -58,20 +63,22 @@ async function main(): Promise<void> {
     });
   });
 
-  const references = cve.references.map((reference) => {
+  const references = cve.references?.map((reference) => {
     return `* ${reference.url}`;
   });
 
   channel.send({
     flags: MessageFlags.SuppressEmbeds,
     content:
-      `**${cve.id}** | CVSS: **${baseScore}**\n` +
+      `**${cve.id}** | CVSS: **${baseScore || 'N/A'}**\n` +
       `\n` +
       `${cve.descriptions[0].value}\n` +
       `\n` +
       `Published at: ${cve.published}\n` +
       `CVE Page: ${config.cve.pageBaseUrl + cve.id}\n` +
-      `CVSS Calculator: ${cvssCalculatorUrl}\n` +
+      `CVSS Calculator: ${
+        vectorString ? cvssCalculatorUrl : 'CVSS has not been calculated'
+      }\n` +
       `\n` +
       `**WEAKNESSES**\n` +
       `\n` +
@@ -79,7 +86,7 @@ async function main(): Promise<void> {
       `\n` +
       `**REFERENCES**\n` +
       `\n` +
-      `${references.join('\n')}\n`,
+      `${references?.join('\n')}\n`,
   });
 
   console.log('[PUBLISHED] ' + cve.id);
