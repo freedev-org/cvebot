@@ -1,5 +1,6 @@
 export default function configResolver() {
   return {
+    debugMode: process.env.DEBUG_MODE == 'true',
     intervalSeconds: Number(process.env.FETCH_INTERVAL_SECONDS) || 90,
 
     discord: {

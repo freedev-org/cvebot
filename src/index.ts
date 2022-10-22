@@ -9,6 +9,7 @@ const config = configResolver();
 const cveFeed = new CveFeed({
   feedPageUrl: config.cve.feedPageUrl,
   cveListFile: config.cve.cveListFile,
+  debugMode: config.debugMode,
 });
 
 const discordClient = new Client({ intents: GatewayIntentBits.Guilds });
