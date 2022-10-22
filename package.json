@@ -27,6 +27,7 @@
     "**/*": "prettier --check --ignore-unknown"
   },
   "dependencies": {
+    "discord.js": "^14.6.0",
     "dotenv": "^16.0.3",
     "node-fetch": "^3.2.10"
   }
