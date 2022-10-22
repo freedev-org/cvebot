@@ -1,7 +1,7 @@
 export default function configResolver() {
   return {
     debugMode: process.env.DEBUG_MODE == 'true',
-    intervalSeconds: Number(process.env.FETCH_INTERVAL_SECONDS) || 90,
+    intervalSeconds: Number(process.env.FETCH_INTERVAL_SECONDS) || 300,
 
     discord: {
       channelId: process.env.DISCORD_CHANNEL_ID || '',
