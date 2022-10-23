@@ -39,6 +39,13 @@ async function main(): Promise<void> {
     return;
   }
 
+  if (
+    cve.descriptions[0].value.indexOf('DO NOT USE THIS CANDIDATE NUMBER') != -1
+  ) {
+    console.log(`[INFO] ${cve.id} ignored because it was withdrawn`);
+    return;
+  }
+
   const cvssMetric =
     typeof cve.metrics['cvssMetricV31'] != 'undefined'
       ? cve.metrics['cvssMetricV31'][0]
@@ -89,5 +96,5 @@ async function main(): Promise<void> {
       `${references?.join('\n')}\n`,
   });
 
-  console.log('[PUBLISHED] ' + cve.id);
+  console.log(`[INFO] ${cve.id} published`);
 }
