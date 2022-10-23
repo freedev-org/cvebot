@@ -59,7 +59,7 @@ async function main(): Promise<void> {
 
   cve.weaknesses?.forEach((weakness: NvdWeakness) => {
     weakness.description.forEach((description) => {
-      if (description.value == 'NVD-CWE-noinfo') {
+      if (description.value.substring(0, 4) != 'CWE-') {
         return;
       }
 
